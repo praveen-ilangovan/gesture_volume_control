@@ -35,11 +35,7 @@ def nominalize_value(value: float, min_value: float=0.17, max_value: float=1.22)
     Returns:
         Nominalized value betwen 0 and 1
     """
-    if value < min_value:
-        return 0
-    elif value > max_value:
-        return 1
-    
+    value = min(max_value, max(min_value, value)) 
     return (value - min_value) / (max_value - min_value)
 
 def set_volume(value: float) -> None:
