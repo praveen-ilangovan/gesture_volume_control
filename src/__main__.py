@@ -9,7 +9,7 @@ Entry point to the module.
 import argparse
 
 # Local imports
-from . import cv_utils
+from .volume_control import volume_control
 
 #-----------------------------------------------------------------------------#
 #
@@ -29,16 +29,7 @@ def main() -> None:
     """ Main function. Gets called when the module is called from the cmdline.
     """
     args = PARSER.parse_args()
-
-    with cv_utils.LiveFeed() as livefeed:
-        while livefeed.isOpened():
-            success, img = livefeed.read()
-            if not success:
-                break
-
-            quit_video = livefeed.show(img)
-            if quit_video:
-                break
+    volume_control()
 
 if __name__ == '__main__':
     main()

@@ -84,3 +84,22 @@ class VideoCapture(cv.VideoCapture):
 class LiveFeed(VideoCapture):
     def __init__(self, webcam: int=0):
         super().__init__(webcam, cv.CAP_DSHOW)
+
+#-----------------------------------------------------------------------------#
+#
+# Image processing
+#
+#-----------------------------------------------------------------------------#
+def convert_to_rgb(img: np.ndarray) -> np.ndarray:
+    """ Convert the image's colour space to rgb
+
+    Args:
+        img numpy.ndarray: Image in an numpy array format
+
+    rtype:
+        numpy.ndarray
+
+    Returns:
+        A numpy array
+    """
+    return cv.cvtColor(img, cv.COLOR_BGR2RGB)
