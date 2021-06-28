@@ -13,7 +13,7 @@ from __future__ import annotations
 # Project specific imports
 import cv2 as cv #type: ignore
 import numpy as np
-from typing import Union, Optional
+from typing import Union, Optional, Tuple
 
 #-----------------------------------------------------------------------------#
 #
@@ -103,3 +103,26 @@ def convert_to_rgb(img: np.ndarray) -> np.ndarray:
         A numpy array
     """
     return cv.cvtColor(img, cv.COLOR_BGR2RGB)
+
+def display(img: np.ndarray, volume: float, landmarks: Tuple):
+    """
+    Display the landmarks and volume information in the image
+    """
+    height, width, channel = img.shape
+    color = (128,0,128)
+
+    # Display the volume
+    volume = int(volume*100)
+    cv.putText(img, "Volume: {0}".format(volume), (10, height-20),
+               cv.FONT_HERSHEY_COMPLEX_SMALL, 1, color, 2)
+
+    # Draw the finger tips
+    tips = []
+    for lm in landmarks:
+        cx, cy = (int(lm.x*width), int(lm.y*height))
+        tips.append((cx,cy))
+        # Draw a circle around the tip
+        cv.circle(img, (cx,cy), 10, color, cv.FILLED)
+
+    # Draw the connection line
+    cv.line(img, tips[0], tips[1], color, 2)

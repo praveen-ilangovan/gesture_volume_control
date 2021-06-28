@@ -29,6 +29,7 @@ def main() -> None:
     """ Main function. Gets called when the module is called from the cmdline.
     """
     args = PARSER.parse_args()
+    print("Press 'q' to quit the LiveFeed")
     volume_control()
 
 if __name__ == '__main__':
