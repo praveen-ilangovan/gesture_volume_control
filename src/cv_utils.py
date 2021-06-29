@@ -104,25 +104,44 @@ def convert_to_rgb(img: np.ndarray) -> np.ndarray:
     """
     return cv.cvtColor(img, cv.COLOR_BGR2RGB)
 
-def display(img: np.ndarray, volume: float, landmarks: Tuple):
+def display(img: np.ndarray, volume: int, landmarks: Tuple):
     """
     Display the landmarks and volume information in the image
     """
     height, width, channel = img.shape
     color = (128,0,128)
 
+    # Volume color
+    vol_color = (0,255,0)
+    if volume < 10:
+        vol_color = (0,128,0)
+    elif volume > 90:
+        vol_color = (0,0,255)
+
     # Display the volume
-    volume = int(volume*100)
     cv.putText(img, "Volume: {0}".format(volume), (10, height-20),
-               cv.FONT_HERSHEY_COMPLEX_SMALL, 1, color, 2)
+               cv.FONT_HERSHEY_COMPLEX_SMALL, 1, vol_color, 2)
+
+    # Volume Bar
+    volume_bar_width = 200
+    volume_bar_height = 20
+    volume_bar_origin = (10, height-50)
+    volume_bar_dest = (volume_bar_origin[0] + volume_bar_width,
+                       volume_bar_origin[1] - volume_bar_height)
+    cv.rectangle(img, volume_bar_origin, volume_bar_dest, vol_color, 1)
+    cv.rectangle(img, volume_bar_origin, ((volume*2)+volume_bar_origin[0], volume_bar_dest[1]), vol_color, cv.FILLED)
 
     # Draw the finger tips
     tips = []
     for lm in landmarks:
         cx, cy = (int(lm.x*width), int(lm.y*height))
+        cv.circle(img, (cx,cy), 15, color, cv.FILLED)
         tips.append((cx,cy))
-        # Draw a circle around the tip
-        cv.circle(img, (cx,cy), 10, color, cv.FILLED)
 
     # Draw the connection line
     cv.line(img, tips[0], tips[1], color, 2)
+
+    # Draw the center circle
+    cx = tips[0][0] + ((tips[-1][0]-tips[0][0])//2)
+    cy = tips[0][1] + ((tips[-1][1]-tips[0][1])//2)
+    cv.circle(img, (cx,cy), 15, vol_color, cv.FILLED)

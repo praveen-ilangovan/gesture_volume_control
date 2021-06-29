@@ -26,7 +26,8 @@ class HandTracker():
         self.__mp_hands = mp.solutions.hands
         self.__mp_draw = mp.solutions.drawing_utils
 
-        self.__hands = self.__mp_hands.Hands(max_num_hands=max_hands)
+        self.__hands = self.__mp_hands.Hands(max_num_hands=max_hands,
+                                             min_detection_confidence=0.6)
 
     #--------------------------------------------------------------------------#
     # Properties
