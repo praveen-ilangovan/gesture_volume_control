@@ -8,6 +8,6 @@ Controls the volume of the system using hand gesture.
 """
 
 __author__ = 'Praveen Ilangovan'
-__copyright__ = 'Copyright 2021, GOT Face Recognizer'
+__copyright__ = 'Copyright 2021, Gesture Volume Control'
 __email__ = 'praveen.ilangovan@gmail.com'
 __status__ = 'Development'
