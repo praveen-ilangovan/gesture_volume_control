@@ -54,9 +54,9 @@ class VideoCapture(cv.VideoCapture):
         cv.destroyAllWindows()
 
     #-------------------------------------------------------------------------#
-    # Extended methods
+    # Extra methods
     #-------------------------------------------------------------------------#
-    def show(self, img: np.ndarray, winname: str="Video") -> bool:
+    def show(self, img: np.ndarray, winname: str="Volume Controller") -> bool:
         """
         Show the image in a window and listen to the keyboard events to stop
         showing.
