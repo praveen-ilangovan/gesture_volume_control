@@ -7,7 +7,7 @@ Control volume of the system using hand gesture
 """
 
 # Project specific imports
-from typing import Tuple
+from typing import Tuple, List
 import numpy as np
 from ctypes import cast, POINTER
 from comtypes import CLSCTX_ALL #type: ignore
@@ -61,8 +61,8 @@ def calculate_angle(lm1, lm2, lm3) -> float:
     """
     vector_1 = [lm1.x - lm2.x, lm1.y - lm2.y]
     vector_2 = [lm3.x - lm2.x, lm3.y - lm2.y]
-    unit_vector_1 = vector_1 / np.linalg.norm(vector_1)
-    unit_vector_2 = vector_2 / np.linalg.norm(vector_2)
+    unit_vector_1 = vector_1 / np.linalg.norm(vector_1) #type: ignore
+    unit_vector_2 = vector_2 / np.linalg.norm(vector_2) #type: ignore
     dot_product = np.dot(unit_vector_1, unit_vector_2)
     return np.arccos(dot_product)
 
